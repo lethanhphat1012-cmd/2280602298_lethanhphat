@@ -12,3 +12,11 @@ const products = [
 exports.getAllProducts = (req, res) => {
     res.json(products);
 };
+
+exports.getNamesAndPrices = (req, res) => {
+    const result = products.map(p => ({
+        name: p.name,
+        price: p.price
+    }));
+    res.json(result);
+}
