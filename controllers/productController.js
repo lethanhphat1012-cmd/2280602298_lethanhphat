@@ -35,3 +35,8 @@ exports.checkConditions = (req, res) => {
         areAccessoriesAvailable: allAccessoriesAvailable
     });
 };
+
+exports.getTotalInventoryValue = (req, res) => {
+    const total = product.reduce((sum,p) => sum + (p.price * p.quantity), 0);
+    res.json({totalInventoryValue: total});
+};
