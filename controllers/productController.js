@@ -40,3 +40,28 @@ exports.getTotalInventoryValue = (req, res) => {
     const total = product.reduce((sum,p) => sum + (p.price * p.quantity), 0);
     res.json({totalInventoryValue: total});
 };
+
+exports.getLoopResults = (req, res) => {
+    let logs = [];
+    logs.push ("Cau 8: For ... Of");
+    for(const p of products) {
+        logs.push('${p.name} - ${p.category} - ${p.isAvailable}');
+    }
+
+    logs.push("Cau 9: For ... In");
+    if(products.length > 0) {
+        const p = product[0];
+        for(const key in p) {
+            logs.push('Thuoc tinh: ${key} - Gia tri: ${p[key]}');
+        }
+    }
+
+    const activeProducts = products
+        .filter(p => p.isAvailable && p.quantity > 0)
+        .map(p => p.name);
+    
+    res.json({
+        logs: logs,
+        activeProductsName: activeProducts
+    });
+};
