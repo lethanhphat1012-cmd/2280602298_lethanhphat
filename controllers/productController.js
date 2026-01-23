@@ -19,4 +19,9 @@ exports.getNamesAndPrices = (req, res) => {
         price: p.price
     }));
     res.json(result);
-}
+};
+
+exports.getInStockProducts = (req, res) => {
+    const result = products.filter(p => p.quantity > 0);
+    res.json(result);
+};
