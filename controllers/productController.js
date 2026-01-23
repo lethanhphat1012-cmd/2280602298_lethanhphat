@@ -25,3 +25,13 @@ exports.getInStockProducts = (req, res) => {
     const result = products.filter(p => p.quantity > 0);
     res.json(result);
 };
+
+exports.checkConditions = (req, res) => {
+    const hasExpensive = products.some(p => p.price > 30);
+    const accessories = products.filter (p => p.category === 'Accessories');
+    const allAccessoriesAvailable = accessories.every(p => p.isAvailable === true);
+    res.json({
+        hasProductOver30: hasExpensive,
+        areAccessoriesAvailable: allAccessoriesAvailable
+    });
+};
