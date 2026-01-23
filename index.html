@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width= device-width, initial-scale=1.0">
+    <title>Bai Tap Product</title>
+    <style>
+        body {font-family: sans-serif; padding: 20px;}
+        .box { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+    </style>
+
+</head>
+<body>
+    <h1>Ket qua bai tap (Fetch tu Node.js API)</h1>
+    
+    <div class="box">
+        <h3>Cau 10: San pham dang ban & Con hang</h3>
+        <ul id="q10-list"></ul>
+    </div>
+
+    <div class="box">
+        <h3>Cau 8 & 9: Log ket qua </h3>
+        <pre id="log-output"></pre>
+    </div>
+
+    <script>
+        // Gọi API Backend
+        fetch('http://localhost:3000/api/products/loops-and-filter')
+        .then(response => response.json())
+        .then(data => {
+            // Hiển thị câu 10
+            const list = document.getElementById('q10-list');
+            data.activeProductsName.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                list.appendChild(li);
+            });
+
+            // Hiển thị log câu 8, 9
+            const logOutput = document.getElementById('log-output');
+            logOutput.textContent = data.logs.join('\n');
+        })
+        .catch(err => console.error("Lỗi:", err));
+    </script>
+</body>
+</html>
